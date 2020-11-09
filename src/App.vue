@@ -1,5 +1,4 @@
 <template>
-  <div>导航栏</div>
   <router-view></router-view>
 </template>
 
