@@ -1,3 +1,3 @@
 <template>
-    tabs
+    <p>dialog</p>
 </template>

@@ -1,3 +1,3 @@
 <template>
-    dialog
+    <p>doc demo</p>
 </template>
