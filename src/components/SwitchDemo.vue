@@ -1,6 +1,6 @@
 <template>
     <p>Switch 的文档</p>
-    <Switch :value="y" @input="y = $event"/>
+    <Switch :value="y" @update:value="y = $event"/>
 </template>
 
 <script lang="ts">
