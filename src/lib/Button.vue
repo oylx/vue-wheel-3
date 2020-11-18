@@ -17,15 +17,15 @@ export default {
     },
   },
   setup(props) {
-    const { theme,  size} = props
+    const { theme, size } = props
     const classes = computed(() => {
       return {
         [`gulu-theme-${theme}`]: theme,
-        [`gulu-size-${size}`]:size
-      }
-    })
-    return { classes }
-  }
+        [`gulu-size-${size}`]: size,
+      };
+    });
+    return { classes };
+  },
 };
 </script>
 <style lang="scss">
@@ -80,17 +80,15 @@ $radius: 4px;
       background: darken(white, 5%);
     }
   }
-  &.gulu-theme-button{
-    &.gulu-size-big{
-      font-size: 24px;
-      height: 48px;
-      padding: 0 16px
-    }
-    &.gulu-size-small{
-      font-size: 12px;
-      height: 20px;
-      padding: 0 4px;
-    }
+  &.gulu-size-big {
+    font-size: 24px;
+    height: 48px;
+    padding: 0 16px;
+  }
+  &.gulu-size-small {
+    font-size: 12px;
+    height: 20px;
+    padding: 0 4px;
   }
 }
 </style>
