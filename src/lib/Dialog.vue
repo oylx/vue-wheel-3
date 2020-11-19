@@ -1,36 +1,68 @@
 <template>
-<template v-if="visible">
-  <div class="gulu-dialog-overlay"></div>
-  <div class="gulu-dialog-wrapper">
-    <div class="gulu-dialog">
-      <header>
-        标题
-        <span class="gulu-dialog-close"></span>
-      </header>
-      <main>
-        <p>第一行字</p>
-        <p>第二行字</p>
-      </main>
-      <footer>
-        <Button level="main">OK</Button>
-        <Button>Cancel</Button>
-      </footer>
+  <template v-if="visible">
+    <div class="gulu-dialog-overlay" @click="closeOnClickOverlay"></div>
+    <div class="gulu-dialog-wrapper">
+      <div class="gulu-dialog">
+        <header>
+          标题
+          <span class="gulu-dialog-close" @click="close"></span>
+        </header>
+        <main>
+          <p>第一行字</p>
+          <p>第二行字</p>
+        </main>
+        <footer>
+          <Button level="main" @click="ok">OK</Button>
+          <Button @click="cancel">Cancel</Button>
+        </footer>
+      </div>
     </div>
-  </div>
-</template>
+  </template>
 </template>
 
 <script lang="ts">
 import Button from "./Button.vue";
 export default {
+  inheritAttrs: false,
   props: {
     visible: {
       type: Boolean,
-      default: false
+      default: false,
+    },
+    closeOnClickOverlay: {
+        type: Boolean,
+        default: true
+    },
+    ok: {
+        type: Function,
+    },
+    cancel: {
+        type: Function
     }
   },
   components: {
     Button,
+  },
+  setup(props, context) {
+    const close = () => {
+        context.emit("update:visible", false);
+    };
+    const closeOnClickOverlay = () => {
+        if(props.closeOnClickOverlay) {
+            close()
+        }
+    }
+    const ok = () => {
+        // 先执行props.ok(),再判断返回值===false
+      if (props.ok?.() !== false) {
+        close()
+      }
+    }
+    const cancel = () => {
+      context.emit('cancel')
+      close()
+    }
+    return { close, ok, cancel, closeOnClickOverlay };
   },
 };
 </script>
@@ -60,7 +92,7 @@ $border-color: #d9d9d9;
     transform: translate(-50%, -50%);
     z-index: 11;
   }
-  >header {
+  > header {
     padding: 12px 16px;
     border-bottom: 1px solid $border-color;
     display: flex;
@@ -68,10 +100,10 @@ $border-color: #d9d9d9;
     justify-content: space-between;
     font-size: 20px;
   }
-  >main {
+  > main {
     padding: 12px 16px;
   }
-  >footer {
+  > footer {
     border-top: 1px solid $border-color;
     padding: 12px 16px;
     text-align: right;
@@ -84,7 +116,7 @@ $border-color: #d9d9d9;
     cursor: pointer;
     &::before,
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       height: 1px;
       background: black;
