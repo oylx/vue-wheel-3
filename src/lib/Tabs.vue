@@ -1,10 +1,10 @@
 <template>
-  <div class="gulu-tabs">
+<div class="gulu-tabs">
   <div class="gulu-tabs-nav">
     <div class="gulu-tabs-nav-item" v-for="(t,index) in titles" @click="select(t)" :class="{selected: t=== selected}" :key="index">{{t}}</div>
   </div>
   <div class="gulu-tabs-content">
-    <component class="gulu-tabs-content-item" :is="current" :key="current.props.title"/>
+    <component class="gulu-tabs-content-item" :class="{selected: c.props.title === selected }" v-for="c in defaults" :is="c" />
   </div>
 </div>
 </template>
@@ -29,9 +29,9 @@ export default {
     })
     const current = computed(() => {
       console.log('重新 return')
-      return defaults.find((tag) => {
+      return defaults.filter((tag) => {
         return tag.props.title === props.selected
-      })
+      })[0]
     })
     const titles = defaults.map((tag) => {
       return tag.props.title
@@ -72,6 +72,12 @@ $border-color: #d9d9d9;
   }
   &-content {
     padding: 8px 0;
+    &-item {
+      display: none;
+      &.selected {
+        display: block;
+      }
+    }
   }
 }
 </style>
