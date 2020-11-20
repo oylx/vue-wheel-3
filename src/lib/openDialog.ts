@@ -15,6 +15,7 @@ export const openDialog = (options) => {
         {
           visible: true,
           "onUpdate:visible": (newVisible) => {
+            // 监听visible
             if (newVisible === false) {
               close();
             }
