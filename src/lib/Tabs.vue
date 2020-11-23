@@ -14,10 +14,9 @@
 <script lang="ts">
 import Tab from './Tab.vue'
 import {
-  computed,
-  ref,
   onMounted,
-  onUpdated
+  onUpdated,
+  ref
 } from 'vue'
 export default {
   props: {
@@ -30,50 +29,22 @@ export default {
     const indicator = ref < HTMLDivElement > (null)
     const container = ref < HTMLDivElement > (null)
     const x = () => {
-      const divs = navItems.value
-      const result = divs.filter(div => div.classList.contains('selected'))[0]
-      console.log(result)
-      const {
-        width
-      } = result.getBoundingClientRect()
-      indicator.value.style.width = width + 'px'
-      const {
-        left: left1
-      } = container.value.getBoundingClientRect()
-      const {
-        left: left2
-      } = result.getBoundingClientRect()
-      const left = left2 - left1
-      indicator.value.style.left = left + 'px'
+      const result = navItems.value.find(div => div.classList.contains("selected"))
+      const { width } = result.getBoundingClientRect()
+      const { left: left1 } = container.value.getBoundingClientRect()
+      const { left: left2 } = result.getBoundingClientRect()
+      const left = left2- left1
+      indicator.value.style.width = width + "px"
+      indicator.value.style.left = left + "px"
     }
     onMounted(x)
     onUpdated(x)
     const defaults = context.slots.default()
-    defaults.forEach((tag) => {
-      if (tag.type !== Tab) {
-        throw new Error('Tabs 子标签必须是 Tab')
-      }
-    })
-    const current = computed(() => {
-      return defaults.filter((tag) => {
-        return tag.props.title === props.selected
-      })[0]
-    })
-    const titles = defaults.map((tag) => {
-      return tag.props.title
-    })
-    const select = (title: string) => {
-      context.emit('update:selected', title)
+    const titles = defaults.map(el => el.props.title)
+    const select = (t) => {
+        context.emit("update:selected", t)
     }
-    return {
-      defaults,
-      titles,
-      current,
-      select,
-      navItems,
-      indicator,
-      container
-    }
+    return { defaults, titles, select, navItems, indicator, container }
   }
 }
 </script>
