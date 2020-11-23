@@ -4,6 +4,7 @@ import "./lib/gulu.scss";
 import './index.scss'
 import { router } from './router'
 import './lib/svg.js'
+import 'github-markdown-css'
 
 const app = createApp(App)
 app.use(router)
