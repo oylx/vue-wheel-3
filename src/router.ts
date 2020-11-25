@@ -1,18 +1,21 @@
 import { createWebHashHistory, createRouter } from "vue-router";
+import { h } from "vue";
 import Home from "./views/Home.vue";
 import Doc from "./views/Doc.vue";
 import SwitchDemo from "./components/SwitchDemo.vue";
 import ButtonDemo from "./components/ButtonDemo.vue";
 import DialogDemo from "./components/DialogDemo.vue";
 import TabsDemo from "./components/TabsDemo.vue";
-import Markdown from "./views/Markdown.vue";
-import { h } from "vue";
+
+import Markdown from "./components/Markdown.vue";
+
+// 动态引入报错,rollup不支持动态加载,采用静态引入
+import intro from "./markdown/intro.md";
+import getStarted from "./markdown/get-started.md";
+import install from "./markdown/install.md";
+const md = (string) => h(Markdown, { content: string, key: string });
+
 const history = createWebHashHistory();
-const x = (key) =>
-  h(Markdown, {
-    src: `../markdown/${key}.md`,
-    key,
-  });
 export const router = createRouter({
   history: history,
   routes: [
@@ -21,10 +24,10 @@ export const router = createRouter({
       path: "/doc",
       component: Doc,
       children: [
-        { path: "", redirect:"/doc/intro" },
-        { path: "intro", component: x("intro") },
-        { path: "get-started", component: x("get-started") },
-        { path: "install", component: x("install") },
+        { path: "", redirect: "/doc/intro" },
+        { path: "intro", component: md(intro) },
+        { path: "get-started", component: md(getStarted) },
+        { path: "install", component: md(install) },
         { path: "switch", component: SwitchDemo },
         { path: "button", component: ButtonDemo },
         { path: "dialog", component: DialogDemo },
