@@ -18,6 +18,7 @@ import Button from "../lib/Button.vue";
 import "prismjs";
 import "prismjs/themes/prism.css";
 import { computed, ref } from "vue";
+// 强制转换,源码中Prism挂在window中
 const Prism = (window as any).Prism;
 export default {
   components: {
