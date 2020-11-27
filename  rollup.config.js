@@ -12,8 +12,8 @@ export default {
     globals: {
       vue: 'Vue'
     },
-    name: 'Gulu',
-    file: 'dist/lib/gulu.js',
+    name: 'vue3-wheel-oylx',
+    file: 'dist/lib/index.js',
     format: 'umd',
     plugins: [terser()]
   },
