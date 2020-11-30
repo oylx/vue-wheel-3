@@ -8,7 +8,7 @@ import { terser } from "rollup-plugin-terser"
 
 export default {
   input: 'src/lib/index.ts',
-  output: {
+  output: [{
     globals: {
       vue: 'Vue'
     },
@@ -16,7 +16,12 @@ export default {
     file: 'dist/lib/index.js',
     format: 'umd',
     plugins: [terser()]
-  },
+  }, {
+    name: 'vue3-wheel-oylx',
+    file: 'dist/lib/index.esm.js',
+    format: 'es',
+    plugins: [terser()]
+  }],
   plugins: [
     scss({ include: /\.scss$/, sass: dartSass }),
     esbuild({
@@ -28,4 +33,4 @@ export default {
       include: /\.vue$/,
     })
   ],
-} 
+}
