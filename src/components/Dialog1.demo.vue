@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import Dialog from '../lib/Dialog.vue'
+import { Dialog } from  "vue3-wheel-oylx";
 import Button from '../lib/Button.vue'
 import {
   ref

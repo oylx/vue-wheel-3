@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import Button from "../lib/Button.vue";
+import { Button } from "vue3-wheel-oylx";
 import "prismjs";
 import "prismjs/themes/prism.css";
 import { computed, ref } from "vue";

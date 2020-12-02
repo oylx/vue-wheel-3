@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import Button from "../lib/Button.vue";
+import { Button } from "vue3-wheel-oylx";
 export default {
   components: {
     Button
